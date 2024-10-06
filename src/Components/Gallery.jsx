@@ -3,10 +3,12 @@ import React, { useEffect, useState } from 'react'
 import Heading from './Heading'
 import { initFlowbite } from 'flowbite'
 import { fetchData } from '../actions/serverActions'
+import image1 from "../gallery/1.jpg"
+import image2 from "../gallery/2.jpg"
 
 export default function Gallery() {
 
-  const [images, setImages] = useState([])
+  const [images, setImages] = useState([image1, image2])
   const fetchAllImages = async () => {
     const serverResponse = await fetchData(`${import.meta.env.VITE_APP_SERVER_URI}api/gallery/image`, null)
     const response = await serverResponse.json()
@@ -32,7 +34,7 @@ export default function Gallery() {
       <Heading text='Gallery' />
       <div id="gallery" className="relative w-full pt-5" data-carousel="slide">
         <div className="relative h-56 overflow-hidden rounded-lg md:h-96">
-          {images.map((image, index) => {
+          {images.length > 0 && images.map((image, index) => {
             return <div key={index} className="hidden duration-700 ease-in-out" data-carousel-item>
               <img src={image} className="absolute block max-w-full h-auto -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 object-contain" alt="" />
             </div>
