@@ -13,15 +13,13 @@ export const sendPostRequest = async (url, data) => {
   }
 }
 
-export const addNote = async (url, authtoken, data) => {
+export const deleteRequest = async (url, authtoken) => {
   try {
     const response = await fetch(url, {
-      method: "POST",
+      method: "DELETE",
       headers: {
-        "Content-Type": "application/json",
         "Authorization": `Bearer ${authtoken}`
       },
-      body: JSON.stringify(data)
     })
     return response
   } catch (error) {
@@ -43,19 +41,25 @@ export const fetchData = async (url, authtoken) => {
   }
 }
 
-export const deleteRequest = async (url, authtoken) => {
+export const addNote = async (url, authtoken, data) => {
   try {
     const response = await fetch(url, {
-      method: "DELETE",
+      method: "POST",
       headers: {
+        "Content-Type": "application/json",
         "Authorization": `Bearer ${authtoken}`
       },
+      body: JSON.stringify(data)
     })
     return response
   } catch (error) {
     console.log(error)
   }
 }
+
+
+
+
 export const editNote = async (url, authtoken, data) => {
   try {
     const response = await fetch(url, {

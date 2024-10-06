@@ -4,7 +4,7 @@ import { MdDelete } from "react-icons/md";
 export default function UserCard({ _id, name, email, message, handleDelete }) {
   return (
     <div>
-      <div className="w-64 flex flex-col bg-white border border-t-4 border-t-blue-600 shadow-sm rounded-xl">
+      <div className="w-64 flex flex-col bg-white border border-gray-300 border-t-4 border-t-blue-600 shadow-sm rounded-xl">
         <div className="p-4 md:p-5">
           <h3 className="text-lg font-bold text-gray-800">
             {name}

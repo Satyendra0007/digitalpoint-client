@@ -12,6 +12,9 @@ import Admin from './admin/Admin'
 import Users from './admin/Users'
 import Messages from './admin/Messages'
 import SignOut from './Pages/SignOut'
+import Gallery from './admin/Gallery'
+import Services from './admin/Services'
+import ServiceForm from './Pages/ServiceForm'
 
 function App() {
   return (
@@ -24,9 +27,12 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/services" element={<Service />} />
+          {/* <Route path="/services/:url" element={<ServiceForm />} /> */}
           <Route path='/admin' element={<Admin />} >
             <Route path='users' element={<Users />} />
             <Route path='messages' element={<Messages />} />
+            <Route path='gallery' element={<Gallery />} />
+            <Route path='services' element={<Services />} />
           </Route>
           <Route path="/signout" element={<SignOut />} />
         </Routes>

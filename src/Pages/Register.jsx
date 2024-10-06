@@ -1,19 +1,23 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { useForm } from "react-hook-form"
 import { sendPostRequest } from "../actions/serverActions"
 import { useNavigate } from "react-router-dom"
 import { toast } from 'react-toastify';
 import { ContextStore } from '../store/ContextStore';
 import { NavLink } from 'react-router-dom';
+import Spinner from '../Components/Spinner'
 
 export default function Register() {
 
   const navigate = useNavigate()
   const { saveToLocalStorage } = useContext(ContextStore)
   const { register, handleSubmit, watch, formState: { errors, isSubmiting } } = useForm()
+  const [loading, setLoading] = useState(false)
+
 
   const handleOnSubmit = async (data) => {
     if (data.password === data.confirmPassword) {
+      setLoading(true)
       delete data.confirmPassword
       const serverResponse = await sendPostRequest(`${import.meta.env.VITE_APP_SERVER_URI}api/auth/signup`, data)
       const response = await serverResponse.json()
@@ -25,12 +29,14 @@ export default function Register() {
       else {
         toast.warning(response.message)
       }
+      setLoading(false)
     }
   }
 
   return (
     <div>
-      <div className='container mx-auto min-h-[84vh] '>
+      <div className='container mx-auto min-h-[84vh]'>
+        {loading && <Spinner />}
         <div className='md:max-w-xl md:m-auto py-8 m-4 bg-white shadow-2xl  rounded-2xl  border border-gray-200 '>
           <div className="text-center text-2xl md:text-[2rem] font-semibold whitespace-nowrap dark:text-white"> Kanhaiya<span className='text-blue-700'>Digital</span>Point</div>
           <h1 className='font-semibold text-xl md:text-2xl text-center my-5'>Create your Account</h1>
@@ -69,6 +75,6 @@ export default function Register() {
           </form>
         </div>
       </div>
-    </div>
+    </div >
   )
 }

@@ -1,18 +1,31 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import ServiceCard from '../Components/ServiceCard'
 import Heading from '../Components/Heading'
-import services from '../data/servicesData'
 import { ContextStore } from '../store/ContextStore'
 import { useNavigate } from 'react-router-dom'
+import { fetchData } from '../actions/serverActions'
 
 export default function Service() {
   const navigate = useNavigate()
   const { isLoggedIn } = useContext(ContextStore)
+  const [services, setServices] = useState([])
+
+  const fetchAllServices = async () => {
+    const serverResponse = await fetchData(`${import.meta.env.VITE_APP_SERVER_URI}api/services`)
+    const response = await serverResponse.json();
+    if (serverResponse.ok) {
+      setServices(response)
+    }
+    else {
+      console.log(response)
+    }
+  }
 
   useEffect(() => {
     if (!isLoggedIn)
       navigate("/login")
-  })
+    fetchAllServices()
+  }, [])
   return (
     <div className='container mx-auto md:max-w-7xl' >
       <Heading text={"Our Services"} />

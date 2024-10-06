@@ -2,6 +2,8 @@ import React from 'react'
 import { NavLink } from 'react-router-dom'
 import { FaUser } from "react-icons/fa";
 import { SiGooglemessages } from "react-icons/si";
+import { GrGallery } from "react-icons/gr";
+import { MdOutlineMiscellaneousServices } from "react-icons/md";
 
 export default function AdminMenu() {
   return (
@@ -23,6 +25,21 @@ export default function AdminMenu() {
           <SiGooglemessages />
           <span className='hidden md:block'>Messages</span>
         </NavLink>
+        <NavLink
+          className=" p-3 text-center font-bold text-gray-700 flex justify-center items-center gap-3 md:justify-start md:px-6 "
+          to="gallery"
+          style={({ isActive }) => isActive ? { backgroundColor: "blue", color: "white" } : {}}
+        >
+          <GrGallery />
+          <span className='hidden md:block'>Gallery</span>
+        </NavLink>
+        <NavLink
+          className=" p-3 text-center font-bold text-gray-700 flex justify-center items-center gap-3 md:justify-start md:px-6"
+          to="services"
+          style={({ isActive }) => isActive ? { backgroundColor: "blue", color: "white" } : {}}
+        >
+          <MdOutlineMiscellaneousServices />
+          <span className='hidden md:block'>Services</span></NavLink>
       </nav >
 
     </>

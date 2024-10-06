@@ -3,15 +3,18 @@ import { useForm } from 'react-hook-form';
 import { sendPostRequest } from '../actions/serverActions';
 import { toast } from 'react-toastify';
 import { ContextStore } from '../store/ContextStore';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { NavLink } from 'react-router-dom';
+import Spinner from '../Components/Spinner';
 
 export default function Login() {
   const navigate = useNavigate()
   const { saveToLocalStorage } = useContext(ContextStore)
   const { register, handleSubmit, formState: { errors, isSubmiting } } = useForm()
+  const [loading, setLoading] = useState(false)
 
   const handleOnSubmit = async (data) => {
+    setLoading(true)
     const serverResponse = await sendPostRequest(`${import.meta.env.VITE_APP_SERVER_URI}api/auth/login`, data)
     const response = await serverResponse.json()
     if (serverResponse.ok) {
@@ -22,11 +25,13 @@ export default function Login() {
     else {
       toast.error(response.message)
     }
+    setLoading(false)
   }
 
   return (
     <div>
       <div className='container mx-auto min-h-[84vh]  py-28'>
+        {loading && <Spinner />}
         <div className='md:max-w-xl md:m-auto  py-10 m-4 bg-white border border-gray-200 shadow-2xl  rounded-2xl'>
           <div className="text-center text-2xl md:text-[2rem] font-semibold whitespace-nowrap dark:text-white"> Kanhaiya<span className='text-blue-700'>Digital</span>Point</div>
           <h1 className='font-semibold text-xl md:text-2xl text-center my-5'>Login to your Account</h1>

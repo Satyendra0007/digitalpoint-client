@@ -1,5 +1,4 @@
 import React from 'react'
-import { IoIosChatbubbles } from "react-icons/io";
 
 export default function AmentiesCard({ Icon, text }) {
   const Logo = () => {

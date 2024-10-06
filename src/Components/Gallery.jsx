@@ -1,18 +1,32 @@
-import React, { useEffect } from 'react'
-import image1 from '../gallery/1.jpg'
-import image2 from '../gallery/2.jpg'
-import image3 from '../gallery/3.jpg'
-import image4 from '../gallery/4.jpg'
+import 'flowbite'
+import React, { useEffect, useState } from 'react'
 import Heading from './Heading'
 import { initFlowbite } from 'flowbite'
-import 'flowbite'
+import { fetchData } from '../actions/serverActions'
 
 export default function Gallery() {
+
+  const [images, setImages] = useState([])
+  const fetchAllImages = async () => {
+    const serverResponse = await fetchData(`${import.meta.env.VITE_APP_SERVER_URI}api/gallery/image`, null)
+    const response = await serverResponse.json()
+    if (serverResponse.ok) {
+      setImages(response.map(ele => ele.url))
+    }
+    else {
+      console.log(response.message)
+      toast.error(response.message)
+    }
+  }
+
   useEffect(() => {
-    initFlowbite()
+    fetchAllImages();
   }, [])
 
-  const images = [image1, image2, image3, image4]
+  useEffect(() => {
+    initFlowbite();
+  }, [images])
+
   return (
     <div className=''>
       <Heading text='Gallery' />
