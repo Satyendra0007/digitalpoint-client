@@ -41,37 +41,4 @@ export const fetchData = async (url, authtoken) => {
   }
 }
 
-export const addNote = async (url, authtoken, data) => {
-  try {
-    const response = await fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${authtoken}`
-      },
-      body: JSON.stringify(data)
-    })
-    return response
-  } catch (error) {
-    console.log(error)
-  }
-}
 
-
-
-
-export const editNote = async (url, authtoken, data) => {
-  try {
-    const response = await fetch(url, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${authtoken}`
-      },
-      body: JSON.stringify(data)
-    })
-    return response
-  } catch (error) {
-    console.log(error)
-  }
-}

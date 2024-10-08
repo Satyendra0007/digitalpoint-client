@@ -6,14 +6,15 @@ import { sendPostRequest } from '../actions/serverActions';
 import { IoIosSend } from "react-icons/io";
 
 export default function Contact() {
+  
   const { userData } = useContext(ContextStore)
-
   const [form, setForm] = useState({
     name: userData ? userData.name : "",
     email: userData ? userData.email : "",
     phone: userData ? userData.phone : "",
     message: ""
   })
+  const [loading, setLoading] = useState(false)
 
   const handleOnChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value })
@@ -21,6 +22,7 @@ export default function Contact() {
 
   const handleOnSubmit = async (e) => {
     e.preventDefault()
+    setLoading(true)
     const serverResponse = await sendPostRequest(`${import.meta.env.VITE_APP_SERVER_URI}api/form/contact`, form)
     const response = await serverResponse.json()
     if (serverResponse.ok) {
@@ -30,6 +32,7 @@ export default function Contact() {
     else {
       toast.error(response.message)
     }
+    setLoading(false)
   }
 
 
@@ -73,7 +76,21 @@ export default function Contact() {
 
 
         <div className="button">
-          <button type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg  px-8 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 flex justify-center items-center gap-1 mx-auto"> <IoIosSend /> <span>Send</span></button>
+          <button type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg  w-40 h-12 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800  mx-auto">
+            {loading ?
+              <>
+                <div className='flex space-x-2 justify-center items-center '>
+                  <span className='sr-only'>Loading...</span>
+                  <div className='h-2.5 w-2.5 bg-white rounded-full animate-bounce [animation-delay:-0.3s]'></div>
+                  <div className='h-2.5 w-2.5 bg-white rounded-full animate-bounce [animation-delay:-0.15s]'></div>
+                  <div className='h-2.5 w-2.5 bg-white rounded-full animate-bounce'></div>
+                </div>
+              </>
+              :
+              <div className='flex justify-center items-center gap-1'>
+                <IoIosSend /> <span>Send</span>
+              </div>}
+          </button>
         </div>
       </form >
     </div >

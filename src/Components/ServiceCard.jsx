@@ -5,7 +5,6 @@ import { FaArrowRight } from "react-icons/fa";
 export default function ServiceCard({ thumbnail, name, url }) {
   return (
     <div>
-      {/* <Link to={`/services/${url}`} */}
       <a href={url}
         className=" block md:w-96 md:h-80 bg-white border border-gray-200 rounded-lg shadow-lg dark:bg-gray-800 dark:border-gray-700 group hover:scale-105 transition-all ease-in-out duration-300">
         <div>
@@ -21,7 +20,6 @@ export default function ServiceCard({ thumbnail, name, url }) {
           </div>
         </div>
       </a>
-      {/* </Link> */}
     </div>
   )
 }

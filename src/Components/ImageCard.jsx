@@ -1,7 +1,7 @@
 import React from 'react'
 import { MdDelete } from "react-icons/md";
 
-export default function ImageCard({ url, public_id, _id, handleDelete }) {
+export default function ImageCard({ url, _id, handleDelete }) {
   return (
     <div>
       <div className="w-64 flex flex-col bg-white border border-gray-300 border-t-4 border-t-blue-600 shadow-sm rounded-xl ">
