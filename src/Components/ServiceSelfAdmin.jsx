@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { MdDelete } from "react-icons/md";
 import { CiEdit } from "react-icons/ci";
 import { initFlowbite } from 'flowbite';
+import { CiLocationArrow1 } from "react-icons/ci";
 
 export default function ServiceAdmin({ thumbnail, name, _id, url, handleEdit, handleDelete, uploading }) {
 
@@ -38,9 +39,12 @@ export default function ServiceAdmin({ thumbnail, name, _id, url, handleEdit, ha
           <div className="p-4 w-64 md:p-5">
             <img className='w-full h-36 border border-gray-300' src={thumbnail} alt="image" />
             <h2 className='font-semibold text-sm mt-1' >{name}</h2>
-            <button onClick={() => handleDelete(_id)} className='float-right bg-blue-600 p-1.5 text-white rounded-full text-lg md:hover:scale-105 transition-all duration-200 ease-linear mt-1'><MdDelete /></button>
 
-            <button onClick={handleOnClick} className='float-right bg-blue-600 p-1.5 text-white rounded-full text-lg md:hover:scale-105 transition-all duration-200 ease-linear mt-1 mr-2' type='button'><CiEdit /></button>
+            <a href={url} target='_blank' className='float-right bg-blue-600 py-1.5 px-3 text-white rounded-full text-lg md:hover:scale-105 transition-all duration-200 ease-linear mt-1 '><CiLocationArrow1 /></a>
+
+            <button onClick={() => handleDelete(_id)} className='float-left bg-blue-600 p-1.5 text-white rounded-full text-lg md:hover:scale-105 transition-all duration-200 ease-linear mt-1 mr-2'><MdDelete /></button>
+
+            <button onClick={handleOnClick} className='float-left bg-blue-600 p-1.5 text-white rounded-full text-lg md:hover:scale-105 transition-all duration-200 ease-linear mt-1 mr-2' type='button'><CiEdit /></button>
 
           </div>
 

@@ -14,7 +14,7 @@ export default function Service() {
     const serverResponse = await fetchData(`${import.meta.env.VITE_APP_SERVER_URI}api/services`)
     const response = await serverResponse.json();
     if (serverResponse.ok) {
-      setServices(response)
+      setServices(response.filter((service) => !service.isAdmin))
     }
     else {
       console.log(response)

@@ -6,6 +6,8 @@ import { toast } from 'react-toastify';
 import { ContextStore } from '../store/ContextStore';
 import { NavLink } from 'react-router-dom';
 import Spinner from '../Components/Spinner'
+import { FaEye } from "react-icons/fa";
+import { FaEyeSlash } from "react-icons/fa";
 
 export default function Register() {
 
@@ -13,6 +15,10 @@ export default function Register() {
   const { saveToLocalStorage } = useContext(ContextStore)
   const { register, handleSubmit, watch, formState: { errors, isSubmiting } } = useForm()
   const [loading, setLoading] = useState(false)
+  const [show, setShow] = useState({
+    pass: false,
+    con_pass: false
+  })
 
 
   const handleOnSubmit = async (data) => {
@@ -57,13 +63,17 @@ export default function Register() {
               {errors.phone && <span className='text-red-600 text-xs font-bold'>{errors.phone.message}</span>}
             </div>
             <div className="relative z-0">
-              <input type="password" id="floating_standard4" className="block py-2.5 px-0 w-full  text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " autoComplete='new-password' {...register("password", { required: { value: true, message: "Password is required " }, minLength: { value: 8, message: "Password must have 8 characters" } })} />
+              <input type={show.pass ? "text" : "password"} id="floating_standard4" className="block py-2.5 px-0 w-full  text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " autoComplete='new-password' {...register("password", { required: { value: true, message: "Password is required " }, minLength: { value: 8, message: "Password must have 8 characters" } })} />
               <label htmlFor="floating_standard4" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto">Password</label>
+              <span className='absolute top-4 right-4 cursor-pointer text-gray-700' onClick={() => setShow({ ...show, pass: !show.pass })}>
+                {show.pass ? <FaEye /> : <FaEyeSlash />}</span>
               {errors.password && <span className='text-red-600 text-xs font-bold'>{errors.password.message}</span>}
             </div>
             <div className="relative z-0">
-              <input type="password" id="floating_standard5" className="block py-2.5 px-0 w-full  text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " autoComplete='new-password' {...register("confirmPassword", { required: { value: true, message: "Password is required " }, minLength: { value: 8, message: "Password must have 8 characters" } })} />
+              <input type={show.con_pass ? "text" : "password"} id="floating_standard5" className="block py-2.5 px-0 w-full  text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " autoComplete='new-password' {...register("confirmPassword", { required: { value: true, message: "Password is required " }, minLength: { value: 8, message: "Password must have 8 characters" } })} />
               <label htmlFor="floating_standard5" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto">Confirm Password</label>
+              <span className='absolute top-4 right-4 cursor-pointer text-gray-700' onClick={() => setShow({ ...show, con_pass: !show.con_pass })}>
+                {show.con_pass ? <FaEye /> : <FaEyeSlash />}</span>
               {errors.confirmPassword && <span className='text-red-600 text-xs font-bold'>{errors.confirmPassword.message}</span>}
               {(watch("password") !== watch("confirmPassword")) && <div className='text-red-600 text-xs font-bold'>Password Must be Same </div>}
             </div>

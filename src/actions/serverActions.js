@@ -41,4 +41,18 @@ export const fetchData = async (url, authtoken) => {
   }
 }
 
-
+export const patchRequest = async (url, authtoken, data) => {
+  try {
+    const response = await fetch(url, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `${authtoken}`
+      },
+      body: JSON.stringify(data)
+    })
+    return response
+  } catch (error) {
+    console.log(error)
+  }
+}

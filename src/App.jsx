@@ -14,6 +14,7 @@ import Messages from './admin/Messages'
 import SignOut from './Pages/SignOut'
 import Gallery from './admin/Gallery'
 import Services from './admin/Services'
+import AdminServices from './admin/Admin-Service'
 import ServiceForm from './Pages/ServiceForm'
 
 function App() {
@@ -33,6 +34,7 @@ function App() {
             <Route path='messages' element={<Messages />} />
             <Route path='gallery' element={<Gallery />} />
             <Route path='services' element={<Services />} />
+            <Route path='adminservices' element={<AdminServices />} />
           </Route>
           <Route path="/signout" element={<SignOut />} />
         </Routes>

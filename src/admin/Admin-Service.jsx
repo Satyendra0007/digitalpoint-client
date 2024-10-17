@@ -5,11 +5,11 @@ import { toast } from 'react-toastify';
 import { fetchData, deleteRequest, patchRequest } from '../actions/serverActions';
 import { ContextStore } from '../store/ContextStore'
 import Spinner from '../Components/Spinner';
-import ServiceAdmin from '../Components/ServiceAdmin';
+import ServiceSelfAdmin from '../Components/ServiceSelfAdmin';
 
 export default function Gallery() {
   const [preview, setPreview] = useState(null);
-  const [service, setservice] = useState({ name: "", url: "", isAdmin: false })
+  const [service, setservice] = useState({ name: "", url: "", isAdmin: true })
   const [file, setFile] = useState(null)
   const [services, setServices] = useState([])
   const [loading, setLoading] = useState(false)
@@ -62,7 +62,7 @@ export default function Gallery() {
     const serverResponse = await fetchData(`${import.meta.env.VITE_APP_SERVER_URI}api/services`, null)
     const response = await serverResponse.json()
     if (serverResponse.ok) {
-      setServices(response.filter((service) => !service.isAdmin))
+      setServices(response.filter((service) => service.isAdmin))
     }
     else {
       console.log(response.message)
@@ -174,11 +174,11 @@ export default function Gallery() {
 
       </div>
       <div className="bottom">
-        <h1 className='text-2xl font-bold my-5  text-center text-blue-700'>All Services</h1>
+        <h1 className='text-2xl font-bold my-5  text-center text-blue-700'>All Servises</h1>
         <div className="flex flex-wrap gap-4 justify-center items-center min-h-96">
           {loading ? <Spinner /> : <>
             {services.map((service) => {
-              return <ServiceAdmin key={service._id} {...service} handleDelete={handleDelete} handleEdit={handleEdit} uploading={loading} />
+              return <ServiceSelfAdmin key={service._id} {...service} handleDelete={handleDelete} handleEdit={handleEdit} uploading={loading} />
             })}
           </>}
         </div>
